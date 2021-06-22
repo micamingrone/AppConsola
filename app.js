@@ -3,7 +3,8 @@ const { guardarDB, leerDB } = require('./helpers/guardarArchivo');
 const {
     inquirerMenu,
     pausa, 
-    leerInput
+    leerInput,
+    listadoTareasBorrar
 }
 
 = require('./helpers/inquirer');
@@ -41,9 +42,25 @@ const main = async() => {
                 break;
 
             case '2':
-                //Crear listado
-                tareas.listadoCompleto();
-                break;
+                 //Crear listado
+                 tareas.listadoCompleto();
+                 break;
+            
+            case '3':
+                 //Listar tareas completadas
+                 tareas.listadoCompletadasPendientes(true);
+                 break;
+            
+            case '4':
+                 //Listar tareas pendientes
+                 tareas.listadoCompletadasPendientes(false);
+                 break;
+            
+            case '6':
+                //Borrar tareas
+                 const id = await listadoTareasBorrar(tareas.listadoArr);
+                 console.log({id});
+                 break; 
 
 
 
