@@ -4,7 +4,9 @@ const {
     inquirerMenu,
     pausa, 
     leerInput,
-    listadoTareasBorrar
+    listadoTareasBorrar,
+    confirmar,
+    mostrarListadoChecklist
 }
 
 = require('./helpers/inquirer');
@@ -55,11 +57,26 @@ const main = async() => {
                  //Listar tareas pendientes
                  tareas.listadoCompletadasPendientes(false);
                  break;
+
+            case '5':
+                //Tareas completas | pendientes
+                const ids = await mostrarListadoChecklist (tareas.listadoArr);
+                tareas.toggleCompletadas(ids);
+                break;     
             
             case '6':
                 //Borrar tareas
                  const id = await listadoTareasBorrar(tareas.listadoArr);
-                 console.log({id});
+                 if(id !=='0'){
+                    const ok = await confirmar('¿Está seguro?');
+                    if(ok){
+                        tareas.borrarTarea(id);
+                        console.log('Tarea eliminada'); 
+                    } 
+                      
+                 }
+                
+
                  break; 
 
 
